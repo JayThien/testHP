@@ -1,0 +1,227 @@
+<div class="container">
+  <nz-card nzTitle="Tra cứu mã số BHXH" [nzExtra]="extraTemplate">
+    <form nz-form [formGroup]="traCuuVNPostForm" (ngSubmit)="submitVNPostForm()">
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>Tỉnh/Thành phố</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Vui lòng chọn Tỉnh/Thành phố">
+          <nz-select
+            formControlName="maTinh"
+            (ngModelChange)="onTinhChange($event)"
+            nzPlaceHolder="Chọn Tỉnh/Thành phố"
+            [nzLoading]="isLoadingData"
+            nzShowSearch
+            [nzAllowClear]="true"
+            [nzFilterOption]="filterOption">
+            <nz-option *ngFor="let tinh of danhSachTinh" [nzValue]="tinh.ma" [nzLabel]="tinh.ten"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>Quận/Huyện</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Vui lòng chọn Quận/Huyện">
+          <nz-select
+            formControlName="maHuyen"
+            (ngModelChange)="onHuyenChange($event)"
+            nzPlaceHolder="Chọn Quận/Huyện"
+            [nzLoading]="isLoadingData"
+            nzShowSearch
+            [nzAllowClear]="true"
+            [nzFilterOption]="filterOption">
+            <nz-option *ngFor="let huyen of huyenTheoTinh" [nzValue]="huyen.ma" [nzLabel]="huyen.ten"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">Xã/Phường</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+          <nz-select
+            formControlName="maXa"
+            nzPlaceHolder="Chọn Xã/Phường"
+            [nzLoading]="isLoadingData"
+            nzShowSearch
+            [nzAllowClear]="true"
+            [nzFilterOption]="filterOption">
+            <nz-option *ngFor="let xa of xaTheoHuyen" [nzValue]="xa.ma" [nzLabel]="xa.ten"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">Họ và tên</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Vui lòng nhập họ và tên">
+          <input nz-input formControlName="hoTen" placeholder="Nhập họ và tên" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">Ngày sinh</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Vui lòng chọn hoặc nhập ngày sinh" nzTooltip="Nhập theo định dạng dd/MM/yyyy, ví dụ: 01/01/1990">
+          <nz-date-picker
+            formControlName="ngaySinh"
+            nzFormat="dd/MM/yyyy"
+            style="width: 100%"
+            nzPlaceHolder="Nhập hoặc chọn ngày sinh"
+            [nzInputReadOnly]="false"
+            (input)="onDateInputChange($event)"
+            nzAllowClear></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">Số CCCD/CMND</nz-form-label>
+        <nz-form-control [nzSpan]="14" nzErrorTip="Vui lòng nhập số CCCD/CMND">
+          <input nz-input formControlName="soCMND" placeholder="Nhập số CCCD/CMND" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzOffset]="6" [nzSpan]="14">
+          <button nz-button nzType="primary" [disabled]="isLoading">
+            <i nz-icon nzType="search" *ngIf="!isLoading"></i>
+            <i nz-icon nzType="loading" *ngIf="isLoading"></i>
+            Tra cứu
+          </button>
+          <button nz-button (click)="resetForm()" style="margin-left: 8px;">
+            <i nz-icon nzType="clear"></i>
+            Xóa
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+
+    <ng-container *ngIf="daTimKiem">
+      <nz-divider></nz-divider>
+
+      <div *ngIf="isLoading" class="loading-container">
+        <nz-spin nzTip="Đang tra cứu..."></nz-spin>
+      </div>
+
+      <div *ngIf="!isLoading && loiTraCuu" class="error-container">
+        <nz-alert nzType="error" [nzMessage]="loiTraCuu" nzShowIcon></nz-alert>
+      </div>
+
+      <div *ngIf="!isLoading && !loiTraCuu && ketQuaTraCuu.length > 0" class="result-container">
+        <h3>Kết quả tra cứu (Tìm thấy {{ ketQuaTraCuu.length }} kết quả)</h3>
+
+        <nz-table #basicTable [nzData]="ketQuaTraCuu" [nzPageSize]="5" [nzShowPagination]="ketQuaTraCuu.length > 5">
+          <thead>
+            <tr>
+              <th>Mã số BHXH</th>
+              <th>Họ và tên</th>
+              <th>Ngày sinh</th>
+              <th>Giới tính</th>
+              <th>Số CCCD/CMND</th>
+              <th>Địa chỉ</th>
+              <th>Trạng thái</th>
+              <th>Chi tiết</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of basicTable.data">
+              <td>{{ item.maSoBHXH }}</td>
+              <td>{{ item.hoTen }}</td>
+              <td>{{ item.ngaySinh | date:'dd/MM/yyyy' }}</td>
+              <td>{{ item.gioiTinh }}</td>
+              <td>{{ item.soCCCD || 'Không có' }}</td>
+              <td>{{ item.diaChi || 'Không có' }}</td>
+              <td>
+                <nz-tag [nzColor]="item.trangThai === 'Đã duyệt' ? 'green' : 'red'">
+                  {{ item.trangThai }}
+                </nz-tag>
+              </td>
+              <td>
+                <button nz-button nzType="primary" nzSize="small" (click)="xemChiTiet(item)">
+                  <i nz-icon nzType="eye"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+
+      <!-- Modal xem chi tiết -->
+      <nz-modal [(nzVisible)]="isModalVisible" nzTitle="Chi tiết mã số BHXH" (nzOnCancel)="closeModal()" [nzFooter]="null">
+        <ng-container *nzModalContent>
+          <nz-descriptions *ngIf="chiTietItem" nzBordered [nzColumn]="{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }">
+            <nz-descriptions-item nzTitle="Mã số BHXH">{{ chiTietItem.maSoBHXH }}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Họ và tên">{{ chiTietItem.hoTen }}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Ngày sinh">{{ chiTietItem.ngaySinh | date:'dd/MM/yyyy' }}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Giới tính">{{ chiTietItem.gioiTinh }}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Số CCCD/CMND">{{ chiTietItem.soCCCD || 'Không có' }}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Địa chỉ">{{ chiTietItem.diaChi || 'Không có' }}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Mã hộ" *ngIf="chiTietItem.maHo">{{ chiTietItem.maHo }}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Trạng thái">
+              <nz-tag [nzColor]="chiTietItem.trangThai === 'Đã duyệt' ? 'green' : 'red'">
+                {{ chiTietItem.trangThai }}
+              </nz-tag>
+            </nz-descriptions-item>
+          </nz-descriptions>
+        </ng-container>
+      </nz-modal>
+    </ng-container>
+  </nz-card>
+</div>
+
+<ng-template #extraTemplate>
+  <button nz-button nzType="link">
+    <i nz-icon nzType="question-circle" nzTheme="outline"></i>
+    Hướng dẫn
+  </button>
+</ng-template>
+
+<!-- Modal đăng nhập VNPost -->
+<app-captcha-modal
+  [(visible)]="isVNPostLoginVisible"
+  [userName]="vnpostLoginForm.get('userName')?.value"
+  [password]="vnpostLoginForm.get('password')?.value"
+  [loading]="isLoadingLogin"
+  (login)="handleLogin($event)"
+  (cancel)="closeVNPostLogin()">
+</app-captcha-modal>
+
+<style>
+  .login-info {
+    margin-bottom: 20px;
+  }
+
+  .captcha-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .input-with-button {
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .input-with-button input {
+    flex: 1;
+  }
+
+  .refresh-button {
+    margin-left: 8px;
+  }
+
+  .login-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .vnpost-login-button {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .login-status {
+    margin-left: 10px;
+    color: #52c41a;
+  }
+</style>

@@ -1,0 +1,170 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar"
+            nzCollapsible
+            nzWidth="256px"
+            [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <a href="/">
+        <div class="logo-text" [class.collapsed]="isCollapsed">
+          <ng-container *ngIf="!isCollapsed">
+            <div>Hệ thống kê khai</div>
+            <div>BHYT-BHXH</div>
+          </ng-container>
+          <div *ngIf="isCollapsed" class="collapsed-text">HP</div>
+        </div>
+      </a>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item nzMatchRouter routerLink="/dashboard" *ngIf="false">
+        <span nz-icon nzType="dashboard"></span>
+        <span>Trang chủ</span>
+      </li>
+      <li nz-submenu nzTitle="Kê khai" nzIcon="form">
+        <ul>
+          <li nz-menu-item nzMatchRouter routerLink="/dot-ke-khai">
+            <span nz-icon nzType="profile"></span>
+            <span>Danh sách kê khai</span>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/lich-su-ke-khai">
+              <span nz-icon nzType="history"></span>
+              <span>Lịch sử kê khai</span>
+            </a>
+          </li>
+          <li nz-menu-item nzMatchRouter routerLink="/admin-danh-sach-ke-khai" *ngIf="isAdmin">
+            <span nz-icon nzType="audit"></span>
+            <span>Quản lý kê khai</span>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Quản lý" nzIcon="appstore" *ngIf="isAdmin">
+        <ul>
+          <li nz-menu-item nzMatchRouter routerLink="/don-vi">
+            <span nz-icon nzType="shop"></span>
+            <span>Đơn vị</span>
+          </li>
+          <li nz-menu-item nzMatchRouter routerLink="/dai-ly">
+            <span nz-icon nzType="team"></span>
+            <span>Đại lý</span>
+          </li>
+          <li nz-menu-item nzMatchRouter routerLink="/users">
+            <span nz-icon nzType="user"></span>
+            <span>Người dùng</span>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Biên lai" nzIcon="file-text">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/bien-lai/bang-ke">Bảng kê biên lai</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/bien-lai/bao-cao">Báo cáo biên lai</a>
+          </li>
+          <li nz-menu-item nzMatchRouter *ngIf="isAdmin">
+            <a routerLink="/bien-lai/quyen-bien-lai">Quyển biên lai</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/bien-lai/dien-tu/quan-ly">Quản lý biên lai điện tử</a>
+          </li>
+          <li nz-menu-item nzMatchRouter *ngIf="isAdmin">
+            <a routerLink="/bien-lai/dien-tu/quyen-bien-lai">Quyển biên lai điện tử</a>
+          </li>
+          <li nz-menu-item nzMatchRouter *ngIf="isAdmin">
+            <a routerLink="/bien-lai/dien-tu/tai-khoan-vnpt">Tài khoản VNPT</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Tra cứu" nzIcon="search">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/tra-cuu/ma-so-bhxh">
+              <span nz-icon nzType="idcard"></span>
+              <span>Mã số BHXH</span>
+            </a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/tra-cuu/ho-gia-dinh">
+              <span nz-icon nzType="team"></span>
+              <span>Hộ gia đình</span>
+            </a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/tra-cuu/thong-tin-bhxh">
+              <span nz-icon nzType="medicine-box"></span>
+              <span>Thông tin BHXH</span>
+            </a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/tra-cuu/thong-tin-bhyt">
+              <span nz-icon nzType="medicine-box"></span>
+              <span>Thông tin BHYT</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Báo cáo" nzIcon="bar-chart" *ngIf="false">
+        <ul>
+          <li nz-menu-item nzMatchRouter routerLink="/reports/monthly">
+            <span nz-icon nzType="file-text"></span>
+            <span>Báo cáo tháng</span>
+          </li>
+          <li nz-menu-item nzMatchRouter routerLink="/reports/statistics">
+            <span nz-icon nzType="fund"></span>
+            <span>Thống kê</span>
+          </li>
+        </ul>
+      </li>
+      <li nz-menu-item nzMatchRouter routerLink="/settings" *ngIf="false">
+        <span nz-icon nzType="setting"></span>
+        <span>Cài đặt</span>
+      </li>
+      <li nz-menu-item (click)="logout()" class="logout-item">
+        <span nz-icon nzType="logout"></span>
+        <span>Đăng xuất</span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <div class="header-left">
+          <span class="header-trigger" (click)="toggleCollapsed()">
+            <span nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
+          </span>
+        </div>
+        <div class="header-right">
+          <span class="header-item">
+            <span nz-icon nzType="bell" nzTheme="outline"></span>
+          </span>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a class="header-item" nz-dropdown [nzDropdownMenu]="userMenu">
+            <span class="username">{{ currentUser?.hoTen || currentUser?.username }}</span>
+          </a>
+          <nz-dropdown-menu #userMenu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                <span nz-icon nzType="user"></span>
+                Thông tin cá nhân
+              </li>
+              <li nz-menu-item>
+                <span nz-icon nzType="lock"></span>
+                Đổi mật khẩu
+              </li>
+              <li nz-menu-item (click)="logout()">
+                <span nz-icon nzType="logout"></span>
+                Đăng xuất
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </div>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

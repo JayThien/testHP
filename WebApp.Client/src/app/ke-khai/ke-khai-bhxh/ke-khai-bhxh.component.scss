@@ -1,0 +1,753 @@
+.ke-khai-bhxh-container {  padding: 0;  min-height: 100vh;
+
+  .form-header {
+    background-color: #f0f7ff;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e6e6e6;
+
+    .form-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #0050b3;
+      margin: 0;
+      display: flex;
+      align-items: center;
+
+      .icon {
+        margin-right: 10px;
+        font-size: 20px;
+        color: #1890ff;
+      }
+    }
+
+    .form-subtitle {
+      font-size: 14px;
+      color: #595959;
+      margin: 8px 0 0 0;
+    }
+  }
+
+  // Style cho breadcrumb
+  ::ng-deep .ant-breadcrumb {
+    margin: 12px 0 16px;
+
+    li {
+      font-size: 13px;
+
+      &:last-child {
+        color: #1890ff;
+        font-weight: 500;
+      }
+    }
+
+    .ant-breadcrumb-separator {
+      margin: 0 6px;
+      color: #bfbfbf;
+    }
+
+    a {
+      color: #595959;
+      transition: all 0.3s;
+
+      &:hover {
+        color: #40a9ff;
+      }
+    }
+  }
+
+  .form-card {
+    margin-bottom: 16px;
+    border-radius: 4px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+
+    &:hover {
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    ::ng-deep .ant-card-head {
+      border-bottom: 1px solid #f0f2f5;
+      padding: 6px 12px;
+      background-color: #f0f7ff;
+      border-radius: 4px 4px 0 0;
+      min-height: auto;
+
+      .ant-card-head-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #0050b3;
+        position: relative;
+        padding-left: 8px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+
+        &:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 3px;
+          height: 14px;
+          background: #1890ff;
+          border-radius: 0;
+        }
+      }
+
+      .card-actions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 8px;
+
+        button {
+          margin: 0;
+
+          &.mr-2 {
+            margin-right: 0 !important; // Override the inline margin
+          }
+
+          // Group primary actions to the right
+          &[nzType="primary"] {
+            order: 10; // Higher order pushes to the end (right side)
+          }
+        }
+      }
+    }
+
+    ::ng-deep .ant-card-body {
+      padding: 12px;
+      border-radius: 0 0 4px 4px;
+    }
+  }
+
+  .table-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .left-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+
+      button {
+        transition: all 0.2s ease;
+
+        // Danger buttons should be on the right side of the left actions group
+        &[nzDanger] {
+          order: 10;
+        }
+      }
+
+      // Add spacing between button groups
+      > *:not(:last-child) {
+        margin-right: 4px;
+      }
+    }
+
+    .right-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+
+      .amount {
+        color: #1890ff;
+        font-weight: 600;
+        font-size: 13px;
+        background: rgba(24, 144, 255, 0.1);
+        padding: 3px 10px;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+    }
+  }
+
+  .custom-input-group {
+    display: flex;
+    width: 100%;
+
+    input {
+      flex: 1;
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+      border-radius: 0;
+      transition: all 0.3s ease;
+      height: 32px;
+      padding: 0 8px;
+      font-size: 13px;
+    }
+
+    button {
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      margin-left: -1px !important;
+      border-radius: 0;
+      transition: all 0.3s ease;
+      height: 32px;
+      width: 32px !important;
+      min-width: 32px !important;
+      padding: 0 !important;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      span[nz-icon] {
+        font-size: 14px;
+      }
+    }
+  }
+
+  nz-form-label {
+    font-weight: 500;
+    color: #262626;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  nz-form-item {
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+  }
+
+  ::ng-deep .ant-select {
+    width: 100%;
+
+    &-selector {
+      height: 32px !important;
+      padding: 0 8px !important;
+      display: flex !important;
+      align-items: center !important;
+      border-radius: 0 !important;
+    }
+
+    &-selection-item {
+      line-height: normal !important;
+      font-size: 13px;
+    }
+  }
+
+  ::ng-deep .ant-input-number {
+    width: 100%;
+    border-radius: 0;
+    height: 32px;
+
+    &-input-wrap {
+      height: 32px;
+      display: flex;
+      align-items: center;
+
+      input {
+        height: 100%;
+        padding: 0 8px;
+        font-size: 13px;
+        line-height: 32px;
+      }
+    }
+
+    &-handler-wrap {
+      height: 32px;
+    }
+  }
+
+  ::ng-deep .ant-btn {
+    border-radius: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 10px;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    line-height: 1;
+
+    &-primary {
+      background: #1890ff;
+      border: none;
+
+      &:hover {
+        background: #40a9ff;
+      }
+    }
+  }
+
+  // Đảm bảo các icon trong nút được căn giữa
+  ::ng-deep .ant-btn span[nz-icon] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .table-actions-cell {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  // Thêm CSS cho cursor-pointer
+  .cursor-pointer {
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+
+    &.active-row {
+      background-color: #e6f7ff;
+      border-left: 3px solid #1890ff;
+    }
+  }
+
+  // Thêm css cho input thường
+  ::ng-deep .ant-input {
+    height: 32px;
+    padding: 0 8px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+  }
+
+  // Thiết lập border-radius đồng nhất cho tất cả các input
+  ::ng-deep .ant-input,
+  ::ng-deep .ant-select-selector,
+  ::ng-deep .ant-input-number,
+  ::ng-deep .ant-picker,
+  ::ng-deep .ant-input-affix-wrapper,
+  ::ng-deep textarea.ant-input {
+    border-radius: 0;
+    height: 32px;
+    padding: 0 8px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+::ng-deep {
+  .date-picker-dropdown {
+    position: fixed !important;
+  }
+
+  .ant-picker {
+    width: 100%;
+    border-radius: 0;
+    transition: all 0.3s ease;
+    height: 32px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+
+    input {
+      font-size: 13px;
+      padding: 0;
+    }
+
+    &-panel-container {
+      z-index: 1050;
+      border-radius: 0;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    &-input {
+      display: flex;
+      align-items: center;
+      height: 100%;
+
+      > input {
+        text-align: left;
+        height: 100%;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
+  .ant-table {
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+
+    &-thead > tr > th {
+      background-color: #fafafa;
+      font-weight: 600;
+      border-radius: 0 !important;
+      padding: 8px 6px;
+      height: 38px;
+      white-space: nowrap;
+      text-align: center;
+      font-size: 12px;
+      color: #262626;
+      border-right: 1px solid #f0f0f0;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    &-tbody > tr > td {
+      padding: 6px;
+      height: 36px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+      font-size: 12px;
+      border-right: 1px solid #f0f0f0;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    &-row {
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #e6f7ff !important;
+      }
+
+      &:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+    }
+  }
+
+  .ant-tag {
+    border-radius: 0;
+    padding: 2px 8px;
+    font-weight: 500;
+  }
+
+  .ant-modal {
+    &-content {
+      border-radius: 0;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    &-header {
+      border-bottom: 1px solid #f0f2f5;
+      padding: 16px 24px;
+
+      .ant-modal-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1890ff;
+      }
+    }
+
+    &-body {
+      padding: 20px;
+    }
+
+    &-footer {
+      border-top: 1px solid #f0f2f5;
+      padding: 16px 24px;
+
+      .ant-btn {
+        border-radius: 0;
+        transition: all 0.3s ease;
+      }
+    }
+  }
+
+  .ant-checkbox {
+    &-checked .ant-checkbox-inner {
+      background-color: #1890ff;
+      border-color: #1890ff;
+    }
+
+    &-wrapper:hover .ant-checkbox-inner,
+    &:hover .ant-checkbox-inner,
+    &-input:focus + .ant-checkbox-inner {
+      border-color: #1890ff;
+    }
+  }
+}
+
+.form-actions {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+
+  button {
+    &[nzType="primary"] {
+      order: 10; // Push primary buttons to the end
+    }
+
+    &[nzDanger] {
+      order: 5; // Push danger buttons before primary but after default
+    }
+  }
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
+
+.captcha-container {
+  .input-with-button {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    input {
+      flex: 1;
+      border-radius: 0;
+      transition: all 0.3s ease;
+    }
+
+    .refresh-button {
+      padding: 4px 8px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #f5f5f5;
+      }
+    }
+  }
+}
+
+.captcha-image {
+  margin-top: 12px;
+  text-align: center;
+
+  img {
+    max-width: 100%;
+    border-radius: 0;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+  }
+}
+
+.login-form {
+  padding: 8px;
+  max-width: 400px;
+  margin: 0 auto;
+
+  .login-message {
+    margin-bottom: 16px;
+    text-align: center;
+
+    p {
+      color: #1890ff;
+      font-size: 14px;
+    }
+  }
+
+  .captcha-image {
+    text-align: center;
+    margin-bottom: 16px;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #d9d9d9;
+      border-radius: 0;
+    }
+  }
+
+  .captcha-container {
+    .input-with-button {
+      display: flex;
+
+      .refresh-button {
+        margin-left: 8px;
+      }
+    }
+  }
+}
+
+.modal-form {
+  padding: 8px;
+
+  nz-form-item {
+    margin-bottom: 16px;
+  }
+
+  textarea {
+    resize: none;
+    border-radius: 0;
+  }
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+  .ke-khai-bhxh-container {
+    padding: 0;
+
+    .form-card {
+      ::ng-deep .ant-card-body {
+        padding: 12px;
+      }
+    }
+
+    .table-actions {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .right-actions {
+        margin-top: 12px;
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+// Animation keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+// Thêm hiệu ứng ripple cho các nút
+.ripple {
+  position: relative;
+  overflow: hidden;
+
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform .5s, opacity 1s;
+  }
+
+  &:active:after {
+    transform: scale(0, 0);
+    opacity: .3;
+    transition: 0s;
+  }
+}
+
+// Style cho các nút tác vụ trong bảng - optimized
+.table-actions-cell {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+
+  button {
+    min-width: 28px;
+    height: 28px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+
+    &[nzDanger] {
+      order: 10; // Push danger buttons to the end
+    }
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// Style cho phần tổng số và tổng tiền
+.table-summary {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 12px;
+  gap: 20px;
+  padding: 8px 16px;
+  background-color: white;
+  border: 1px solid #f0f0f0;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+  .summary-item {
+    display: flex;
+    align-items: center;
+
+    span {
+      font-weight: 500;
+      margin-right: 8px;
+    }
+
+    .value {
+      font-weight: 600;
+      color: #1890ff;
+    }
+
+    .money-value {
+      font-weight: 600;
+      color: #1890ff;
+    }
+  }
+}
+
+// Style cho checkbox
+::ng-deep .ant-checkbox-wrapper {
+  margin-left: 8px;
+}
+
+// Style cho các nút tác vụ trên bảng
+.table-action-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+
+  button {
+    height: 32px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid #d9d9d9;
+    background-color: white;
+    transition: all 0.3s;
+
+    &:hover {
+      border-color: #1890ff;
+      color: #1890ff;
+    }
+  }
+}
