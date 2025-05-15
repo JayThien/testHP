@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://www.test1.com/api',
+  apiUrl: 'http://www.test1.com/api/',
   vietQR: {
     clientId: 'YOUR_CLIENT_ID',
     apiKey: 'YOUR_API_KEY',
