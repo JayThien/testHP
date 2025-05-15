@@ -12,6 +12,5 @@ export const environment = {
     cloudName: 'deqi3xijr',
     uploadPreset: 'bills_preset',
     apiKey: '149338892717835',
-    apiSecret: '_h_kmBS3w6pKadc5bmxKn4GutEU'
   }
 }; 
